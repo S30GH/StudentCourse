@@ -149,6 +149,7 @@ namespace StudentCourse.Models
             }
         }
         
+        /*
         public List<StudentDetalj> GetStudentWithReader (out string errormsg)
         {
             //Skapa  SqlConnection

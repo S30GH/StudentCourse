@@ -69,7 +69,7 @@ namespace StudentCourse.Controllers
             ViewBag.error = error;
             return View(Studentlist);
         }
-
+        /*
         public ActionResult SelectWithDataReader()
         {
             List<StudentDetalj> Studentlist = new List<StudentDetalj>();
@@ -79,7 +79,7 @@ namespace StudentCourse.Controllers
             ViewBag.error = error;
             return View(Studentlist);
         }
-        
+        */
     }
 
 
