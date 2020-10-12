@@ -1,0 +1,63 @@
+﻿@model IEnumerable<StudentCourse.Models.StudentDetalj>
+
+@{
+    ViewData["Title"] = "SelectWithDataSet";
+}
+
+<h2>SelectWithDataSet</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.St_Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.St_Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.St_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.St_Pnr)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Pnr)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.St_Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.St_Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.St_Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.antal != "")
+{
+    <p>ViewBag.antal innehåller: @ViewBag.antal</p>
+}
+@if (ViewBag.error != "")
+{
+    <p>ViewBag.error innehåller: @ViewBag.error</p>
+}
