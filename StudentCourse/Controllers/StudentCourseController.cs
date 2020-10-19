@@ -23,7 +23,6 @@ namespace StudentCourse.Controllers
             int i = 0;
             string error = "";
 
-            //i = sm.InsertStudent(sd, out error);
             ViewBag.error = error;
             ViewBag.antal = i;
 
@@ -69,6 +68,57 @@ namespace StudentCourse.Controllers
             return View(Studentlist);
         }
 
+        [HttpGet]
+        public IActionResult InsertCourse()
+        {
+            CourseDetalj cd = new CourseDetalj();
+            CourseMetoder cm = new CourseMetoder();
+            int i = 0;
+            string error = "";
+
+            //i = sm.InsertStudent(sd, out error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult InsertCourse(IFormCollection fc)
+        {
+            CourseDetalj cd = new CourseDetalj();
+            CourseMetoder cm = new CourseMetoder();
+            int i = 0;
+            string error = "";
+
+            cd.Co_Name = fc["Co_Name"];
+            cd.Co_Period = fc["Co_Period"];
+            cd.Co_Studyrate = Convert.ToInt32(fc["Co_Studyrate"]);
+
+
+            i = cm.InsertCourse(cd, out error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+            //return View();
+            return RedirectToAction("ListCourses");
+
+
+        }
+
+        public IActionResult ListCourses()
+        {
+            List<CourseDetalj> Courselist = new List<CourseDetalj>();
+            CourseMetoder cm = new CourseMetoder();
+
+            string error = "";
+
+            Courselist = cm.GetCourseWithDataSet(out error);
+
+            ViewBag.error = error;
+
+            return View(Courselist);
+        }
 
         /*[HttpPost]
         public IActionResult InsertStudentForm(StudentDetalj sd) {

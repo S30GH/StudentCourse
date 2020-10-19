@@ -58,7 +58,7 @@ namespace StudentCourse
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=StudentTest}/{action=ListStudents}/{id?}");
+                    template: "{controller=StudentCourse}/{action=ListStudents}/{id?}");
             });
         }
     }
