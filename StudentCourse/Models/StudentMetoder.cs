@@ -14,7 +14,7 @@ namespace StudentCourse.Models
 
         }
 
-        public int InsertPerson(StudentDetalj pd, out string errormsg)
+        public int InsertStudent(StudentDetalj pd, out string errormsg)
         {
             //Skapa  SqlConnection
             SqlConnection dbConnection = new SqlConnection();
@@ -23,13 +23,11 @@ namespace StudentCourse.Models
             dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
 
             //sqlstring och lägg till en user i database
-            String sqlstring = "INSERT INTO Tbl_Student (St_Firstname, St_Lastname, St_Pnr) VALUES (@firstname,@lastname,@pnr)";
+            string sqlstring = "INSERT INTO Tbl_Student (St_Firstname, St_Lastname, St_Pnr) VALUES (@firstname, @lastname, @pnr)";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             dbCommand.Parameters.Add("firstname", SqlDbType.Char, 50).Value = pd.St_Firstname;
-
             dbCommand.Parameters.Add("lastname", SqlDbType.Char, 50).Value = pd.St_Lastname;
-
             dbCommand.Parameters.Add("pnr", SqlDbType.Char, 12).Value = pd.St_Pnr;
 
 
@@ -95,7 +93,7 @@ namespace StudentCourse.Models
             dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
 
             //Sqlstring och för att hämta alla studenter
-            String sqlstring = "SELECT * FROM Tbl_Student";
+            string sqlstring = "SELECT * FROM Tbl_Student";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             //skapa en adapter
@@ -124,7 +122,7 @@ namespace StudentCourse.Models
                         sd.St_Firstname = myDS.Tables["myStudent"].Rows[i]["St_Firstname"].ToString();
                         sd.St_Lastname = myDS.Tables["myStudent"].Rows[i]["St_Lastname"].ToString();
                         sd.St_Pnr = myDS.Tables["myStudent"].Rows[i]["St_Pnr"].ToString();
-                        sd.St_Id = Convert.ToInt16(myDS.Tables["myStudent"].Rows[i]["Id"]);
+                        sd.St_Id = Convert.ToInt16(myDS.Tables["myStudent"].Rows[i]["St_Id"]);
 
                         i++;
                         StudentList.Add(sd);
