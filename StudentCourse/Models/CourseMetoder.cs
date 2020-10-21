@@ -28,7 +28,7 @@ namespace StudentCourse.Models
 
             dbCommand.Parameters.Add("name", SqlDbType.Char, 50).Value = cd.Co_Name;
             dbCommand.Parameters.Add("period", SqlDbType.Char, 4).Value = cd.Co_Period;
-            dbCommand.Parameters.Add("studyrate", SqlDbType.Decimal, 2).Value = cd.Co_Studyrate;
+            dbCommand.Parameters.Add("studyrate", SqlDbType.Char, 4).Value = cd.Co_Studyrate;
 
 
             try
@@ -52,7 +52,7 @@ namespace StudentCourse.Models
         }
 
         //Uppdatera SQL-anrop och dbCommand
-        public int DeleteStudent(out string errormsg)
+        public int DeleteCourse(int Co_Id, out string errormsg)
         {
             //Skapa  SqlConnection
             SqlConnection dbConnection = new SqlConnection();
@@ -61,8 +61,10 @@ namespace StudentCourse.Models
             dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
 
             //sqlstring och lägg till en user i database
-            String sqlstring = "DELETE FROM Tbl_Person WHERE Efternamn ='Lindström'";
+            string sqlstring = "DELETE FROM Tbl_Course WHERE Co_Id = @id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+
+            dbCommand.Parameters.Add("id", SqlDbType.Int).Value = Co_Id;
 
             try
             {
@@ -70,7 +72,7 @@ namespace StudentCourse.Models
                 int i = 0;
                 i = dbCommand.ExecuteNonQuery(); //Skickar fråga till databasen
                 if (i == 1) { errormsg = ""; }
-                else { errormsg = "Det togs inte bort någon student i databasen."; }
+                else { errormsg = "Det togs inte bort någon kurs i databasen."; }
                 return (i);
             }
             catch (Exception e)
@@ -121,7 +123,7 @@ namespace StudentCourse.Models
                         CourseDetalj cd = new CourseDetalj();
                         cd.Co_Name = myDS.Tables["myCourse"].Rows[i]["Co_Name"].ToString();
                         cd.Co_Period = myDS.Tables["myCourse"].Rows[i]["Co_Period"].ToString();
-                        cd.Co_Studyrate = Convert.ToInt32 (myDS.Tables["myCourse"].Rows[i]["Co_Studyrate"]);
+                        cd.Co_Studyrate = myDS.Tables["myCourse"].Rows[i]["Co_Studyrate"].ToString();
                         cd.Co_Id = Convert.ToInt16(myDS.Tables["myCourse"].Rows[i]["Co_Id"]);
 
                         i++;

@@ -93,7 +93,7 @@ namespace StudentCourse.Controllers
 
             cd.Co_Name = fc["Co_Name"];
             cd.Co_Period = fc["Co_Period"];
-            cd.Co_Studyrate = Convert.ToInt32(fc["Co_Studyrate"]);
+            cd.Co_Studyrate = fc["Co_Studyrate"];
 
 
             i = cm.InsertCourse(cd, out error);
@@ -120,6 +120,27 @@ namespace StudentCourse.Controllers
             return View(Courselist);
         }
 
+        public IActionResult DeleteStudent(int id)
+        {
+            StudentMetoder sm = new StudentMetoder();
+
+            int i = sm.DeleteStudent(id, out string error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+            return View();
+        }
+
+        public IActionResult DeleteCourse(int id)
+        {
+            CourseMetoder cm = new CourseMetoder();
+            int i = cm.DeleteCourse(id, out string error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+            return View();
+        }
+
         /*[HttpPost]
         public IActionResult InsertStudentForm(StudentDetalj sd) {
             StudentMetoder sm = new StudentMetoder();
@@ -134,6 +155,7 @@ namespace StudentCourse.Controllers
         }
         */
 
+        /*
         public IActionResult DeleteStudent()
         {
             StudentMetoder sm = new StudentMetoder();
@@ -143,6 +165,7 @@ namespace StudentCourse.Controllers
             HttpContext.Session.SetString("antal", i.ToString());
             return RedirectToAction("SelectWithDataSet");
         }
+        */
 
         public ActionResult SelectWithDataSet()
         {

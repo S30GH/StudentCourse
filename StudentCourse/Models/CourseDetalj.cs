@@ -20,9 +20,9 @@ namespace StudentCourse.Models
         [Display(Name = "Period")]
         public string Co_Period { get; set; }
         [Display(Name = "Studietakt")]
-        public decimal Co_Studyrate { get; set; }
+        public string Co_Studyrate { get; set; }
         [Display(Name = "KursID")]
-        public decimal Co_Id { get; set; }
+        public int Co_Id { get; set; }
 
     }
 }

@@ -52,8 +52,9 @@ namespace StudentCourse.Models
         }
 
         //Uppdatera SQL-anrop och dbCommand
-        public int DeleteStudent(out string errormsg)
+        public int DeleteStudent(int St_Id, out string errormsg)
         {
+
             //Skapa  SqlConnection
             SqlConnection dbConnection = new SqlConnection();
 
@@ -61,8 +62,10 @@ namespace StudentCourse.Models
             dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
 
             //sqlstring och lägg till en user i database
-            String sqlstring = "DELETE FROM Tbl_Person WHERE Efternamn ='Lindström'";
+            string sqlstring = "DELETE FROM Tbl_Student WHERE St_Id = @id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+
+            dbCommand.Parameters.Add("id", SqlDbType.Int).Value = St_Id;
 
             try
             {
