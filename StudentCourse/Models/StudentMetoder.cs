@@ -14,7 +14,7 @@ namespace StudentCourse.Models
 
         }
 
-        public int InsertStudent(StudentDetalj pd, out string errormsg)
+        public int InsertStudent(StudentDetalj sd, out string errormsg)
         {
             //Skapa  SqlConnection
             SqlConnection dbConnection = new SqlConnection();
@@ -26,9 +26,9 @@ namespace StudentCourse.Models
             string sqlstring = "INSERT INTO Tbl_Student (St_Firstname, St_Lastname, St_Pnr) VALUES (@firstname, @lastname, @pnr)";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
-            dbCommand.Parameters.Add("firstname", SqlDbType.Char, 50).Value = pd.St_Firstname;
-            dbCommand.Parameters.Add("lastname", SqlDbType.Char, 50).Value = pd.St_Lastname;
-            dbCommand.Parameters.Add("pnr", SqlDbType.Char, 12).Value = pd.St_Pnr;
+            dbCommand.Parameters.Add("firstname", SqlDbType.Char, 50).Value = sd.St_Firstname;
+            dbCommand.Parameters.Add("lastname", SqlDbType.Char, 50).Value = sd.St_Lastname;
+            dbCommand.Parameters.Add("pnr", SqlDbType.Char, 12).Value = sd.St_Pnr;
 
 
             try
@@ -150,6 +150,39 @@ namespace StudentCourse.Models
             }
         }
         
+        public int UpdateStudent(StudentDetalj sd, int St_Id, out string errormsg)
+        {
+            SqlConnection dbConnection = new SqlConnection();
+            dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
+
+            string sqlstring = "UPDATE Tbl_Student SET St_Firstname = @firstname, St_Lastname = @lastname, St_Pnr = @pnr";
+            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+
+            dbCommand.Parameters.Add("firstname", SqlDbType.Char, 50).Value = sd.St_Firstname;
+            dbCommand.Parameters.Add("lastname", SqlDbType.Char, 50).Value = sd.St_Lastname;
+            dbCommand.Parameters.Add("pnr", SqlDbType.Char, 12).Value = sd.St_Pnr;
+
+            try
+            {
+                dbConnection.Open();
+                int i = 0;
+                i = dbCommand.ExecuteNonQuery();
+                if (i == 1) { errormsg = ""; }
+                else { errormsg = "Gick ej att uppdatera person"; }
+                return (i);
+            }
+            catch (Exception e)
+            {
+                errormsg = e.Message;
+                return 0;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
+
         /*
         public List<StudentDetalj> GetStudentWithReader (out string errormsg)
         {

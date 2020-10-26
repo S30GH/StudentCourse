@@ -148,7 +148,39 @@ namespace StudentCourse.Models
                 dbConnection.Close();
             }
         }
-        
+
+        public int UpdateCourse(CourseDetalj cd, int Co_Id, out string errormsg)
+        {
+            SqlConnection dbConnection = new SqlConnection();
+            dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
+
+            string sqlstring = "UPDATE Tbl_Course SET Co_Name = @name, Co_Period = @period, Co_Studyrate = @studyrate";
+            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+
+            dbCommand.Parameters.Add("name", SqlDbType.Char, 50).Value = cd.Co_Name;
+            dbCommand.Parameters.Add("period", SqlDbType.Char, 4).Value = cd.Co_Period;
+            dbCommand.Parameters.Add("studyrate", SqlDbType.Char, 4).Value = cd.Co_Studyrate;
+
+            try
+            {
+                dbConnection.Open();
+                int i = 0;
+                i = dbCommand.ExecuteNonQuery();
+                if (i == 1) { errormsg = ""; }
+                else { errormsg = "Gick ej att uppdatera kurs"; }
+                return (i);
+            }
+            catch (Exception e)
+            {
+                errormsg = e.Message;
+                return 0;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
         /*
         public List<StudentDetalj> GetStudentWithReader (out string errormsg)
         {

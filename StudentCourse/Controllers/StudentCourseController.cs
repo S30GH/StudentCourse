@@ -38,7 +38,6 @@ namespace StudentCourse.Controllers
             int i = 0;
             string error = "";
 
-            //ändra fc["firstname"] till fc["St_Firstname"] eftersom att jag tror att detta relaterar till namnet på formulärrutan. 
             sd.St_Firstname = fc["St_Firstname"];
             sd.St_Lastname = fc["St_Lastname"];
             sd.St_Pnr = fc["St_Pnr"];
@@ -137,6 +136,45 @@ namespace StudentCourse.Controllers
             int i = cm.DeleteCourse(id, out string error);
             ViewBag.error = error;
             ViewBag.antal = i;
+
+            return View();
+        }
+
+        public IActionResult UpdateStudent(IFormCollection fc, int id)
+        {
+            StudentDetalj sd = new StudentDetalj();
+            StudentMetoder sm = new StudentMetoder();
+
+            int i = 0;
+            string error = "";
+
+            sd.St_Firstname = fc["St_Firstname"];
+            sd.St_Lastname = fc["St_Lastname"];
+            sd.St_Pnr = fc["St_Pnr"];
+
+            i = sm.UpdateStudent(sd, id, out error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+
+            return View();
+        }
+        public IActionResult UpdateCourse(IFormCollection fc, int id)
+        {
+            CourseDetalj cd = new CourseDetalj();
+            CourseMetoder cm = new CourseMetoder();
+
+            int i = 0;
+            string error = "";
+
+            cd.Co_Name = fc["Co_Name"];
+            cd.Co_Period = fc["Co_Period"];
+            cd.Co_Studyrate = fc["Co_Studyrate"];
+
+            i = cm.UpdateCourse(cd, id, out error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
 
             return View();
         }
