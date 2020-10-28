@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace StudentCourse.Models
 {
-    public class CourseDetalj
+    public class StudentCourseDetalj
     {
         //Konstruktor
-        public CourseDetalj() { }
+        public StudentCourseDetalj() { }
 
         //Publika egenskaper
         [Display(Name = "Kursnamn")]
@@ -21,6 +21,14 @@ namespace StudentCourse.Models
         public string Co_Studyrate { get; set; }
         [Display(Name = "KursID")]
         public int Co_Id { get; set; }
+        [Display(Name = "Förnamn")]
+        public string St_Firstname { get; set; }
+        [Display(Name = "Efternamn")]
+        public string St_Lastname { get; set; }
+        [Display(Name = "StudentID")]
+        public int St_Id { get; set; }
+        [Display(Name = "Personnummer")]
+        public string St_Pnr { get; set; }
 
     }
 }

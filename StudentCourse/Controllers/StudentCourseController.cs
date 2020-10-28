@@ -178,33 +178,6 @@ namespace StudentCourse.Controllers
 
             return View();
         }
-
-        /*[HttpPost]
-        public IActionResult InsertStudentForm(StudentDetalj sd) {
-            StudentMetoder sm = new StudentMetoder();
-            int i = 0;
-            string error = "";
-            i = sm.InsertPerson(sd, out error);
-            ViewBag.error = error;
-            ViewBag.antal = i;
-            if (i == 1) { return RedirectToAction("SelectWithDataSet"); }
-            else { return View("InsertPerson"); }
-
-        }
-        */
-
-        /*
-        public IActionResult DeleteStudent()
-        {
-            StudentMetoder sm = new StudentMetoder();
-            string error = "";
-            int i = 0;
-            i = sm.DeleteStudent(out error);
-            HttpContext.Session.SetString("antal", i.ToString());
-            return RedirectToAction("SelectWithDataSet");
-        }
-        */
-
         public ActionResult SelectWithDataSet()
         {
             List<StudentDetalj> Studentlist = new List<StudentDetalj>();
@@ -215,17 +188,57 @@ namespace StudentCourse.Controllers
             ViewBag.error = error;
             return View(Studentlist);
         }
-        /*
-        public ActionResult SelectWithDataReader()
+
+        [HttpGet]
+        public ActionResult Filtrering()
         {
-            List<StudentDetalj> Studentlist = new List<StudentDetalj>();
-            StudentMetoder sm = new StudentMetoder();
-            string error = "";
-            Studentlist = sm.GetStudentWithReader(out error);
-            ViewBag.error = error;
-            return View(Studentlist);
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            CourseMetoder cmTot = new CourseMetoder();
+
+
+            //Det går att skicka med VyModell
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg),
+                CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2),
+
+            };
+
+            //Det går att skicka med ViewData
+            List<CourseDetalj> courseDetalj = new List<CourseDetalj>();
+            courseDetalj = cmTot.GetCourseWithDataSet(out string errormsg3);
+            ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3 " + errormsg3;
+            ViewData["courselist"] = courseDetalj;
+
+            //Det går att skicka med ViewBag
+            ViewBag.courselist = courseDetalj;
+
+            return View(myModel);
         }
-        */
+
+        [HttpPost]
+        public ActionResult Filtrering(string Course)
+        {
+            int i = Convert.ToInt32(Course);
+
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            CourseMetoder cmTot = new CourseMetoder();
+
+
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg, i),
+                CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2),
+            };
+
+            List<CourseDetalj> courseDetalj = new List<CourseDetalj>();
+            courseDetalj = cmTot.GetCourseWithDataSet(out string errormsg3);
+            ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3 " + errormsg3;
+            ViewData["Course"] = i;
+            return View(myModel);
+
+                }
+       
     }
 
 
