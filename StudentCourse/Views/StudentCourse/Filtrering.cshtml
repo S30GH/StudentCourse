@@ -6,8 +6,7 @@
     if (ViewData["Course"] != null) { i = (int)ViewData["Course"]; }
 }
 
-<h2>Filtrering</h2>
-
+<h2>Registrerade studenter</h2>
 
 <div class="row">
     <div class="form-group col-md-4">
@@ -45,6 +44,7 @@
         <th>Kurs</th>
         <th>Period</th>
         <th>Studietakt</th>
+        <th></th>
     </tr>
     @foreach (StudentCourse.Models.StudentCourseDetalj studentCourseDetalj in Model.StudentCourseDetaljLista)
     {
@@ -57,7 +57,11 @@
             <td>@studentCourseDetalj.Co_Name</td>
             <td>@studentCourseDetalj.Co_Period</td>
             <td>@studentCourseDetalj.Co_Studyrate</td>
-            
+            <td>@Html.ActionLink("Delete", "DeleteStudent", new { id = studentCourseDetalj.St_Id })</td>
+
         </tr>
     }
 </table>
+
+<a asp-controller="StudentCourse" asp-action="InsertStudent">Lägg till ny student</a>
+<a asp-controller="StudentCourse" asp-action="InsertCourse">Lägg till ny kurs</a>

@@ -1,0 +1,52 @@
+﻿@model StudentCourse.Models.FiltreringModell
+
+
+@{
+    ViewData["Title"] = "Sortering";
+
+    int i = 0;
+    if (ViewData["Course"] != null) { i = (int)ViewData["Course"]; }
+    string s1 = ViewBag.message;
+}
+
+<h2>Sortering</h2>
+
+<p>@ViewBag.error</p>
+
+<p>Det inskickade värdet är @ViewData["Course"] </p>
+
+<form asp-action="Sortering" method="post">
+    <div class="form-group">
+        <input type="submit" id="Sortering" name="sort" value="Sortera på namn" class="btn btn-danger" />
+
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>StudentID</th>
+        <th>Förnamn</th>
+        <th>Efternamn</th>
+        <th>Pnr</th>
+        <th>KursID</th>
+        <th>Kurs</th>
+        <th>Period</th>
+        <th>Studietakt</th>
+        <th></th>
+    </tr>
+    @foreach (StudentCourse.Models.StudentCourseDetalj studentCourseDetalj in Model.StudentCourseDetaljLista)
+    {
+        <tr>
+            <td>@studentCourseDetalj.St_Id</td>
+            <td>@studentCourseDetalj.St_Firstname</td>
+            <td>@studentCourseDetalj.St_Lastname</td>
+            <td>@studentCourseDetalj.St_Pnr</td>
+            <td>@studentCourseDetalj.Co_Id</td>
+            <td>@studentCourseDetalj.Co_Name</td>
+            <td>@studentCourseDetalj.Co_Period</td>
+            <td>@studentCourseDetalj.Co_Studyrate</td>
+            <td>@Html.ActionLink("Delete", "DeleteStudent", new { id = studentCourseDetalj.St_Id })</td>
+
+        </tr>
+    }
+</table>

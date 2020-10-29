@@ -4,12 +4,8 @@
     ViewData["Title"] = "UpdateCourse";
 }
 
-<h2>UpdateCourse</h2>
+<h2>Uppdatera uppgifter om kursen</h2>
 
-Antal rader uppdaterade: @ViewBag.antal
-Eventuellt felmeddelande: @ViewBag.error
-
-<h4>CourseDetalj</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -41,6 +37,9 @@ Eventuellt felmeddelande: @ViewBag.error
         </form>
     </div>
 </div>
+
+Antal rader uppdaterade: @ViewBag.antal
+Eventuellt felmeddelande: @ViewBag.error
 
 <div>
     <a asp-action="Index">Back to List</a>

@@ -1,0 +1,1 @@
+﻿SELECT * FROM Tbl_Student, Tbl_StudentCourse, Tbl_Course WHERE Tbl_StudentCourse.St_Id = Tbl_Student.St_Id AND Tbl_StudentCourse.Co_Id = Tbl_Course.Co_Id AND Tbl_Student.St_pnr = 199002031234

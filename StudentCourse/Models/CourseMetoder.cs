@@ -154,12 +154,13 @@ namespace StudentCourse.Models
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
 
-            string sqlstring = "UPDATE Tbl_Course SET Co_Name = @name, Co_Period = @period, Co_Studyrate = @studyrate";
+            string sqlstring = "UPDATE Tbl_Course SET Co_Name = @name, Co_Period = @period, Co_Studyrate = @studyrate WHERE Co_Id = @id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             dbCommand.Parameters.Add("name", SqlDbType.Char, 50).Value = cd.Co_Name;
             dbCommand.Parameters.Add("period", SqlDbType.Char, 4).Value = cd.Co_Period;
             dbCommand.Parameters.Add("studyrate", SqlDbType.Char, 4).Value = cd.Co_Studyrate;
+            dbCommand.Parameters.Add("id", SqlDbType.Int).Value = cd.Co_Id;
 
             try
             {

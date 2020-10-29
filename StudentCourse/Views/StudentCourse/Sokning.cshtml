@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Sokning";
+}
+
+<h2>Sökning på specifik student</h2>
+
+<div class="row">
+    <form asp-action="Sokning" method="post" class="form-group col-md-4" >
+        <input class="form-control" id="SokString" name="SokString" type="search" placeholder="Sök personnummer ex. 198001011234" />
+        <div class="form-group">
+            <input type="submit" value="Sök" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <tr>
+        <th>StudentID</th>
+        <th>Förnamn</th>
+        <th>Efternamn</th>
+        <th>Pnr</th>
+        <th>KursID</th>
+        <th>Kurs</th>
+        <th>Period</th>
+        <th>Studietakt</th>
+        <th></th>
+    </tr>
+    @foreach (StudentCourse.Models.StudentCourseDetalj studentCourseDetalj in Model.StudentCourseDetaljLista)
+    {
+        <tr>
+            <td>@studentCourseDetalj.St_Id</td>
+            <td>@studentCourseDetalj.St_Firstname</td>
+            <td>@studentCourseDetalj.St_Lastname</td>
+            <td>@studentCourseDetalj.St_Pnr</td>
+            <td>@studentCourseDetalj.Co_Id</td>
+            <td>@studentCourseDetalj.Co_Name</td>
+            <td>@studentCourseDetalj.Co_Period</td>
+            <td>@studentCourseDetalj.Co_Studyrate</td>
+            <td>@Html.ActionLink("Delete", "DeleteStudent", new { id = studentCourseDetalj.St_Id })</td>
+
+        </tr>
+    }
+</table>

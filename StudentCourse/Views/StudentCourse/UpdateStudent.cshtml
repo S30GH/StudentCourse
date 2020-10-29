@@ -4,17 +4,18 @@
     ViewData["Title"] = "UpdateStudent";
 }
 
-<h2>UpdateStudent</h2>
+<h2>Uppdatera uppgifter på student</h2>
 
-Antal rader uppdaterade: @ViewBag.antal
-Eventuellt felmeddelande: @ViewBag.error 
-
-<h4>StudentDetalj</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="UpdateStudent">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="St_Id" class="control-label"></label>
+                <input asp-for="St_Id" class="form-control" />
+                <span asp-validation-for="St_Id" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="St_Firstname" class="control-label"></label>
                 <input asp-for="St_Firstname" class="form-control" />
@@ -36,6 +37,9 @@ Eventuellt felmeddelande: @ViewBag.error
         </form>
     </div>
 </div>
+
+Antal rader uppdaterade: @ViewBag.antal
+Eventuellt felmeddelande: @ViewBag.error
 
 <div>
     <a asp-action="Index">Back to List</a>

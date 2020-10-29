@@ -151,6 +151,7 @@ namespace StudentCourse.Controllers
             sd.St_Firstname = fc["St_Firstname"];
             sd.St_Lastname = fc["St_Lastname"];
             sd.St_Pnr = fc["St_Pnr"];
+            sd.St_Id = Convert.ToInt32(fc["St_Id"]);
 
             i = sm.UpdateStudent(sd, id, out error);
             ViewBag.error = error;
@@ -167,6 +168,7 @@ namespace StudentCourse.Controllers
             int i = 0;
             string error = "";
 
+            cd.Co_Id = Convert.ToInt32(fc["Co_Id"]);
             cd.Co_Name = fc["Co_Name"];
             cd.Co_Period = fc["Co_Period"];
             cd.Co_Studyrate = fc["Co_Studyrate"];
@@ -195,23 +197,14 @@ namespace StudentCourse.Controllers
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
             CourseMetoder cmTot = new CourseMetoder();
 
-
-            //Det går att skicka med VyModell
             FiltreringModell myModel = new FiltreringModell
             {
                 StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg),
                 CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2),
 
             };
-
-            //Det går att skicka med ViewData
-            List<CourseDetalj> courseDetalj = new List<CourseDetalj>();
-            courseDetalj = cmTot.GetCourseWithDataSet(out string errormsg3);
-            ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3 " + errormsg3;
-            ViewData["courselist"] = courseDetalj;
-
-            //Det går att skicka med ViewBag
-            ViewBag.courselist = courseDetalj;
+         
+            ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
 
             return View(myModel);
         }
@@ -237,9 +230,70 @@ namespace StudentCourse.Controllers
             ViewData["Course"] = i;
             return View(myModel);
 
-                }
-       
+        }
+
+        [HttpGet]
+        public ActionResult Sortering()
+        {
+            
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg),
+            };
+
+            ViewBag.error = errormsg;
+
+            return View(myModel);
+        }
+
+        [HttpPost]
+        public ActionResult Sortering(string sort)
+        {
+            ViewData["Course"] = sort;
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.SortStudentCourseWithDataSet(out string errormsg, sort),
+            };
+
+            ViewBag.error = errormsg;
+            ViewBag.sort = sort;
+
+            return View(myModel);
+        }
+
+        [HttpGet]
+        public ActionResult Sokning()
+        {
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            CourseMetoder cmdTot = new CourseMetoder();
+
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg)
+            };
+
+            ViewBag.error = errormsg;
+
+            return View(myModel);
+        }
+
+        [HttpPost]
+        public ActionResult Sokning(string SokString)
+        {
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            CourseMetoder cmdTot = new CourseMetoder();
+
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.Sokning(out string errormsg, SokString)
+            };
+
+            ViewBag.error = errormsg;
+
+            return View(myModel);
+        }
+
     }
-
-
 }
