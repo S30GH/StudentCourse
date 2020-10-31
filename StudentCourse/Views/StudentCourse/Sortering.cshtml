@@ -1,31 +1,46 @@
 ﻿@model StudentCourse.Models.FiltreringModell
 
-
 @{
-    ViewData["Title"] = "Sortering";
-
+    ViewData["Title"] = "Filtrering";
     int i = 0;
     if (ViewData["Course"] != null) { i = (int)ViewData["Course"]; }
-    string s1 = ViewBag.message;
+    
 }
 
-<h2>Sortering</h2>
+<h2>Registrerade studenter</h2>
 
-<p>@ViewBag.error</p>
+<div class="row">
+    <div class="form-group col-md-4">
+        <form asp-action="Filtrering">
+            <div class="form-group">
+                <select class="form-control" id="Course" name="Course">
 
-<p>Det inskickade värdet är @ViewData["Course"] </p>
-
-<form asp-action="Sortering" method="post">
-    <div class="form-group">
-        <input type="submit" id="Sortering" name="sort" value="Sortera på namn" class="btn btn-danger" />
-
+                    @foreach (StudentCourse.Models.CourseDetalj courseDetalj in Model.CourseDetaljLista)
+                    {
+                        @if (courseDetalj.Co_Id != i)
+                        {
+                            <option value="@courseDetalj.Co_Id">@courseDetalj.Co_Name)</option>
+                        }
+                        else
+                        {
+                            <option value="@courseDetalj.Co_Id" selected> @courseDetalj.Co_Name </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Filtrera" class="btn btn-default" />
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
+<p>Querystring sortera innehåller: @ViewBag.sortera </p>
 
 <table class="table">
     <tr>
         <th>StudentID</th>
-        <th>Förnamn</th>
+        <th><a href="Sortering?sortera=fornamn">Förnamn</a></th>
         <th>Efternamn</th>
         <th>Pnr</th>
         <th>KursID</th>
@@ -50,3 +65,6 @@
         </tr>
     }
 </table>
+
+<a asp-controller="StudentCourse" asp-action="InsertStudent">Lägg till ny student</a>
+<a asp-controller="StudentCourse" asp-action="InsertCourse">Lägg till ny kurs</a>

@@ -233,22 +233,26 @@ namespace StudentCourse.Controllers
         }
 
         [HttpGet]
-        public ActionResult Sortering()
+        public ActionResult Sortering(string sortera)
         {
             
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            CourseMetoder cmTot = new CourseMetoder();
+
             FiltreringModell myModel = new FiltreringModell
             {
                 StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg),
+                CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2)
             };
 
-            ViewBag.error = errormsg;
+            ViewBag.sortera = sortera;
+            ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
 
             return View(myModel);
         }
-
+        
         [HttpPost]
-        public ActionResult Sortering(string sort)
+        public ActionResult Sortering()
         {
             ViewData["Course"] = sort;
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
@@ -262,7 +266,7 @@ namespace StudentCourse.Controllers
 
             return View(myModel);
         }
-
+        
         [HttpGet]
         public ActionResult Sokning()
         {
