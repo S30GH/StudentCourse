@@ -51,7 +51,7 @@ namespace StudentCourse.Models
             }
         }
 
-        //Uppdatera SQL-anrop och dbCommand
+
         public int DeleteStudent(int St_Id, out string errormsg)
         {
 

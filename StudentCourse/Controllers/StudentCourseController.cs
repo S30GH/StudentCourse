@@ -47,7 +47,6 @@ namespace StudentCourse.Controllers
             ViewBag.error = error;
             ViewBag.antal = i;
 
-            //return View();
             return RedirectToAction("ListStudents");
 
 
@@ -233,45 +232,10 @@ namespace StudentCourse.Controllers
         }
 
         [HttpGet]
-        public ActionResult Sortering(string sortera)
-        {
-            
-            StudentCourseMetoder scmTot = new StudentCourseMetoder();
-            CourseMetoder cmTot = new CourseMetoder();
-
-            FiltreringModell myModel = new FiltreringModell
-            {
-                StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg),
-                CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2)
-            };
-
-            ViewBag.sortera = sortera;
-            ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
-
-            return View(myModel);
-        }
-        
-        [HttpPost]
-        public ActionResult Sortering()
-        {
-            ViewData["Course"] = sort;
-            StudentCourseMetoder scmTot = new StudentCourseMetoder();
-            FiltreringModell myModel = new FiltreringModell
-            {
-                StudentCourseDetaljLista = scmTot.SortStudentCourseWithDataSet(out string errormsg, sort),
-            };
-
-            ViewBag.error = errormsg;
-            ViewBag.sort = sort;
-
-            return View(myModel);
-        }
-        
-        [HttpGet]
         public ActionResult Sokning()
         {
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
-            CourseMetoder cmdTot = new CourseMetoder();
+            //CourseMetoder cmdTot = new CourseMetoder();
 
             FiltreringModell myModel = new FiltreringModell
             {
@@ -287,7 +251,7 @@ namespace StudentCourse.Controllers
         public ActionResult Sokning(string SokString)
         {
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
-            CourseMetoder cmdTot = new CourseMetoder();
+            //CourseMetoder cmdTot = new CourseMetoder();
 
             FiltreringModell myModel = new FiltreringModell
             {
@@ -298,6 +262,43 @@ namespace StudentCourse.Controllers
 
             return View(myModel);
         }
+
+        [HttpGet]
+        public ActionResult Sortering(string sortera)
+        {
+
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            CourseMetoder cmTot = new CourseMetoder();
+
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.GetStudentCourseWithDataSet(out string errormsg),
+                CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2)
+            };
+
+            ViewBag.sortera = sortera;
+            ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
+
+            return View(myModel);
+        }
+        /*
+        [HttpPost]
+        public ActionResult Sortering()
+        {
+            ViewData["Course"] = sort;
+            StudentCourseMetoder scmTot = new StudentCourseMetoder();
+            FiltreringModell myModel = new FiltreringModell
+            {
+                StudentCourseDetaljLista = scmTot.SortStudentCourseWithDataSet(out string errormsg, sort),
+            };
+
+            ViewBag.error = errormsg;
+            ViewBag.sort = sort;
+
+            return View(myModel);
+        }
+        */
+
 
     }
 }

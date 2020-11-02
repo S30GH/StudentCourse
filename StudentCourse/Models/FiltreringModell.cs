@@ -11,7 +11,6 @@ namespace StudentCourse.Models
     {
         public IEnumerable<StudentCourseDetalj> StudentCourseDetaljLista { get; set; }
         public IEnumerable<CourseDetalj> CourseDetaljLista { get; set; }
-
         public IEnumerable<StudentDetalj> StudentDetaljLista { get; set; }
        
 

@@ -17,8 +17,7 @@ namespace StudentCourse.Models
             //Koppling mot SQL Server
             dbConnection.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Studentdatabas;Integrated Security=True";
 
-            //Sqlstring och för att hämta alla studenter
-            //string sqlstring = "SELECT * FROM Tbl_Student";
+            //Sqlstring och för att hämta alla registrerade studenter
             string sqlstring = "SELECT * FROM Tbl_Student, Tbl_StudentCourse, Tbl_Course WHERE Tbl_StudentCourse.St_Id = Tbl_Student.St_Id AND Tbl_StudentCourse.Co_Id = Tbl_Course.Co_Id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
