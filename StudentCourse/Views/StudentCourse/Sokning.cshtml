@@ -6,7 +6,7 @@
 <h2>Sökning på specifik student</h2>
 
 <div class="row">
-    <form asp-action="Sokning" method="post" class="form-group col-md-4" >
+    <form asp-action="Sokning" method="post" class="form-group col-md-4">
         <input class="form-control" id="SokString" name="SokString" type="search" placeholder="Sök personnummer ex. 198001011234" />
         <div class="form-group">
             <input type="submit" value="Sök" class="btn btn-default" />
@@ -42,3 +42,9 @@
         </tr>
     }
 </table>
+
+<a asp-controller="StudentCourse" asp-action="InsertStudent">Lägg till ny student</a>
+<br>
+<a asp-controller="StudentCourse" asp-action="InsertCourse">Lägg till ny kurs</a>
+<br>
+<a asp-controller="StudentCourse" asp-action="InsertStudentCourse">Registrera student till kurs</a>

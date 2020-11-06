@@ -264,7 +264,7 @@ namespace StudentCourse.Controllers
         }
 
         [HttpGet]
-        public ActionResult Sortering(string sortera)
+        public ActionResult Sortering()
         {
 
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
@@ -276,16 +276,15 @@ namespace StudentCourse.Controllers
                 CourseDetaljLista = cmTot.GetCourseWithDataSet(out string errormsg2)
             };
 
-            ViewBag.sortera = sortera;
             ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
 
             return View(myModel);
         }
-        /*
+        
         [HttpPost]
-        public ActionResult Sortering()
+        public ActionResult Sortering(string sort)
         {
-            ViewData["Course"] = sort;
+            ViewData["sort"] = sort;
             StudentCourseMetoder scmTot = new StudentCourseMetoder();
             FiltreringModell myModel = new FiltreringModell
             {
@@ -297,8 +296,44 @@ namespace StudentCourse.Controllers
 
             return View(myModel);
         }
-        */
+        
 
+        [HttpGet]
+        public IActionResult InsertStudentCourse()
+        {
+            StudentCourseDetalj scd = new StudentCourseDetalj();
+            StudentCourseMetoder scm = new StudentCourseMetoder();
+            int i = 0;
+            string error = "";
+
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+            return View();
+
+
+        }
+        [HttpPost]
+        public IActionResult InsertStudentCourse(IFormCollection fc)
+        {
+            StudentCourseDetalj scd = new StudentCourseDetalj();
+            StudentCourseMetoder scm = new StudentCourseMetoder();
+            int i = 0;
+            string error = "";
+
+            scd.St_Id = Convert.ToInt32(fc["St_Id"]);
+            scd.Co_Id = Convert.ToInt32(fc["Co_Id"]);
+            
+
+
+            i = scm.InsertStudentCourse(scd, out error);
+            ViewBag.error = error;
+            ViewBag.antal = i;
+
+            return RedirectToAction("ListStudents");
+
+
+        }
 
     }
 }

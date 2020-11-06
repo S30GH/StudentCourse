@@ -6,9 +6,7 @@
 
 <h2>Kurslista</h2>
 
-<p>
-    <a asp-controller="StudentCourse" asp-action="InsertCourse">Lägg till ny kurs</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,26 +26,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Co_Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Co_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Co_Period)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Co_Studyrate)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Co_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Co_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Co_Period)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Co_Studyrate)
+                </td>
 
-            <td>
-                @Html.ActionLink("Edit", "UpdateCourse", new {  id=item.Co_Id  }) |
-                @Html.ActionLink("Delete", "DeleteCourse", new {  id=item.Co_Id  })
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.ActionLink("Edit", "UpdateCourse", new { id = item.Co_Id }) |
+                    @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Co_Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<a asp-controller="StudentCourse" asp-action="InsertStudent">Lägg till ny student</a>
+<br>
+<a asp-controller="StudentCourse" asp-action="InsertCourse">Lägg till ny kurs</a>
+<br>
+<a asp-controller="StudentCourse" asp-action="InsertStudentCourse">Registrera student till kurs</a>

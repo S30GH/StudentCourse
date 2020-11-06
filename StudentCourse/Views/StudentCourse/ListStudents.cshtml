@@ -6,9 +6,6 @@
 
 <h2>Studentlista</h2>
 
-<p>
-    <a asp-controller="StudentCourse" asp-action="InsertStudent">Lägg till ny student</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,33 +28,30 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.St_Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.St_Firstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.St_Lastname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.St_Pnr)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "UpdateStudent", new { id = item.St_Id }) |
-                @Html.ActionLink("Delete", "DeleteStudent", new { id = item.St_Id })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St_Pnr)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "UpdateStudent", new { id = item.St_Id }) |
+                    @Html.ActionLink("Delete", "DeleteStudent", new { id = item.St_Id })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
-@if (ViewBag.antal != "")
-{
-    <p>ViewBag.antal innehåller: @ViewBag.antal</p>
-}
-@if (ViewBag.error != "")
-{
-    <p>ViewBag.error innehåller: @ViewBag.error</p>
-}
+<a asp-controller="StudentCourse" asp-action="InsertStudent">Lägg till ny student</a>
+<br>
+<a asp-controller="StudentCourse" asp-action="InsertCourse">Lägg till ny kurs</a>
+<br>
+<a asp-controller="StudentCourse" asp-action="InsertStudentCourse">Registrera student till kurs</a>

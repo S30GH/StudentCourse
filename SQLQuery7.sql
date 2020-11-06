@@ -1,0 +1,1 @@
+﻿INSERT INTO Tbl_StudentCourse (St_Id, Co_Id) VALUES (5, 4);
